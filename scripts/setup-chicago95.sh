@@ -29,19 +29,27 @@ fi
 log "Checking Chicago95 installation..."
 if ! pacman -Qi chicago95-gtk-theme-git &>/dev/null; then
     log "Installing Chicago95 theme via yay..."
-    yay -S --noconfirm --needed chicago95-gtk-theme-git chicago95-icon-theme-git
+    yay -S --noconfirm --needed chicago95-gtk-theme-git chicago95-icon-theme-git xcursor-chicago95-git
     ok "Chicago95 installed"
 else
     ok "Chicago95 already installed"
 fi
 
-# Install Tahoma font (MS Web Core Fonts) if available
+# Install Tahoma font (required for Chicago95)
 log "Checking fonts..."
-if ! pacman -Qi ttf-ms-win10-auto &>/dev/null && ! pacman -Qi ttf-ms-fonts &>/dev/null; then
-    if yay -Ss ttf-ms-win10-auto &>/dev/null; then
-        log "Installing MS fonts for Tahoma..."
-        yay -S --noconfirm --needed ttf-ms-win10-auto 2>/dev/null || true
-    fi
+if ! pacman -Qi ttf-tahoma &>/dev/null; then
+    log "Installing Tahoma font..."
+    yay -S --noconfirm --needed ttf-tahoma
+    ok "Tahoma font installed"
+else
+    ok "Tahoma font already installed"
+fi
+
+# Kill xfconfd if running so config changes take effect
+if pgrep -x xfconfd &>/dev/null; then
+    log "Stopping xfconfd to apply config..."
+    pkill xfconfd || true
+    sleep 1
 fi
 
 # Create XFCE config directories
