@@ -35,6 +35,16 @@ else
     ok "Chicago95 already installed"
 fi
 
+# Install Perfect DOS VGA font for terminal
+log "Checking Perfect DOS VGA font..."
+if ! pacman -Qi ttf-perfectdos &>/dev/null; then
+    log "Installing Perfect DOS VGA font via yay..."
+    yay -S --noconfirm --needed ttf-perfectdos || yay -S --noconfirm --needed --mflags="--skipinteg" ttf-perfectdos
+    ok "Perfect DOS VGA font installed"
+else
+    ok "Perfect DOS VGA font already installed"
+fi
+
 # Install Helvetica bitmap font (works better than Tahoma with modern Pango)
 # Downloaded from Chicago95 GitHub - fixes kerning issues with Pango 1.44+
 log "Checking Helvetica bitmap font..."
@@ -94,6 +104,15 @@ if [[ -f "$CONFIG_DIR/xfce4/helpers.rc" ]]; then
     backup_if_different "$CONFIG_DIR/xfce4/helpers.rc" "$dst"
     cp "$CONFIG_DIR/xfce4/helpers.rc" "$dst"
     log "Installed helpers.rc"
+fi
+
+# Copy terminal config (Perfect DOS VGA font)
+if [[ -f "$CONFIG_DIR/xfce4/terminal/terminalrc" ]]; then
+    mkdir -p "$USER_HOME/.config/xfce4/terminal"
+    dst="$USER_HOME/.config/xfce4/terminal/terminalrc"
+    backup_if_different "$CONFIG_DIR/xfce4/terminal/terminalrc" "$dst"
+    cp "$CONFIG_DIR/xfce4/terminal/terminalrc" "$dst"
+    log "Installed terminal config with Perfect DOS VGA font"
 fi
 
 ok "Chicago95 theme configured"
