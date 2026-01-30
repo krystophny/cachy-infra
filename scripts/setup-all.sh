@@ -34,6 +34,9 @@ echo "Target user: $TARGET_USER"
 echo ""
 
 # Run scripts that need root
+log "Mounting RAID storage..."
+"$SCRIPT_DIR/setup-storage.sh"
+
 log "Setting up TTY autologin..."
 "$SCRIPT_DIR/setup-tty-autologin.sh" "$TARGET_USER"
 
