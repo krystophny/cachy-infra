@@ -13,7 +13,7 @@
     <property name="DPI" type="int" value="96"/>
   </property>
   <property name="Gtk" type="empty">
-    <property name="FontName" type="string" value="Tahoma 8"/>
+    <property name="FontName" type="string" value="Helvetica 8"/>
     <property name="CursorThemeName" type="string" value="Chicago95 Standard Cursors"/>
     <property name="DecorationLayout" type="string" value="icon,menu:minimize,maximize,close"/>
   </property>

@@ -49,7 +49,7 @@
     <property name="plugin-8" type="string" value="clock">
       <property name="mode" type="uint" value="2"/>
       <property name="digital-layout" type="uint" value="3"/>
-      <property name="digital-time-font" type="string" value="Tahoma 8"/>
+      <property name="digital-time-font" type="string" value="Helvetica 8"/>
     </property>
     <property name="plugin-10" type="string" value="launcher">
       <property name="items" type="array">

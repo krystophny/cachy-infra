@@ -35,14 +35,22 @@ else
     ok "Chicago95 already installed"
 fi
 
-# Install Tahoma font (required for Chicago95)
-log "Checking fonts..."
-if ! pacman -Qi ttf-tahoma &>/dev/null; then
-    log "Installing Tahoma font..."
-    yay -S --noconfirm --needed ttf-tahoma
-    ok "Tahoma font installed"
+# Install Helvetica bitmap font (works better than Tahoma with modern Pango)
+# Downloaded from Chicago95 GitHub - fixes kerning issues with Pango 1.44+
+log "Checking Helvetica bitmap font..."
+FONT_DIR="$USER_HOME/.local/share/fonts/cronyx-cyrillic"
+if [[ ! -d "$FONT_DIR" ]]; then
+    log "Downloading Helvetica bitmap font from Chicago95..."
+    TMPDIR=$(mktemp -d)
+    curl -sL "https://github.com/grassmunk/Chicago95/archive/refs/heads/master.tar.gz" | \
+        tar -xz -C "$TMPDIR" --strip-components=3 "Chicago95-master/Fonts/bitmap/cronyx-cyrillic"
+    mkdir -p "$USER_HOME/.local/share/fonts"
+    mv "$TMPDIR/cronyx-cyrillic" "$USER_HOME/.local/share/fonts/"
+    rm -rf "$TMPDIR"
+    fc-cache -f "$USER_HOME/.local/share/fonts"
+    ok "Helvetica bitmap font installed"
 else
-    ok "Tahoma font already installed"
+    ok "Helvetica bitmap font already installed"
 fi
 
 # Kill xfconfd if running so config changes take effect
