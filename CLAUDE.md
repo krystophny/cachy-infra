@@ -15,7 +15,8 @@ sudo reboot
 |--------|----------|-------------|
 | `setup-all.sh` | sudo | Master script - runs all setup |
 | `setup-chicago95.sh` | user | Install Chicago95 theme, apply XFCE config |
-| `setup-autologin.sh` | sudo | Configure LightDM auto-login |
+| `setup-tty-autologin.sh` | sudo | TTY autologin + auto-start XFCE (faster than LightDM) |
+| `setup-autologin.sh` | sudo | Configure LightDM auto-login (legacy) |
 | `setup-boot.sh` | sudo | Set timeout=0, remove quiet/splash |
 
 ## Config
@@ -26,13 +27,13 @@ XFCE configuration in `config/xfce4/`:
 
 ## What Gets Configured
 
-1. **Chicago95 Theme** - Windows 95 retro look
+1. **Chicago95 Theme** - Windows 98 retro look
    - GTK theme, icons, cursors, sounds
-   - Tahoma font
+   - Helvetica bitmap font (better rendering than Tahoma)
    - Panel with "Start" button
    - Teal desktop background (#008080)
 
-2. **Auto-login** - User ert logs in automatically via LightDM
+2. **TTY Autologin** - Fast boot direct to XFCE (no display manager)
 
 3. **Boot** - Zero timeout, text output instead of splash
 
