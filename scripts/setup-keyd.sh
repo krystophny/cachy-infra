@@ -1,5 +1,6 @@
 #!/bin/bash
 # Install and configure keyd for Mac-like keybindings
+# Also sets up natural scrolling (Mac-style inverted scroll)
 # Requires root
 
 set -euo pipefail
@@ -33,7 +34,12 @@ log "Enabling keyd service..."
 systemctl enable keyd
 systemctl restart keyd
 
+# Set up natural scrolling
+log "Installing natural scrolling config..."
+cp "$SCRIPT_DIR/../config/X11/30-natural-scrolling.conf" /etc/X11/xorg.conf.d/
+
 ok "Mac-like keybindings active"
+ok "Natural scrolling enabled (requires logout/restart)"
 echo ""
 echo "Key mappings:"
 echo "  Meta (Win) -> Alt (for Cmd+key shortcuts)"
@@ -44,3 +50,6 @@ echo ""
 echo "  Cmd+C/V/X  -> Copy/Paste/Cut"
 echo "  Cmd+Z/S/A  -> Undo/Save/Select All"
 echo "  Cmd+T/W/N  -> New Tab/Close Tab/New Window"
+echo ""
+echo "Mouse:"
+echo "  Natural scrolling (inverted wheel)"
