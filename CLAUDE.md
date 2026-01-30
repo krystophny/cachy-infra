@@ -18,6 +18,7 @@ sudo reboot
 | `setup-tty-autologin.sh` | sudo | TTY autologin + auto-start XFCE (faster than LightDM) |
 | `setup-autologin.sh` | sudo | Configure LightDM auto-login (legacy) |
 | `setup-boot.sh` | sudo | Set timeout=0, remove quiet/splash |
+| `setup-remove-plymouth.sh` | sudo | Remove plymouth from initramfs (faster boot) |
 
 ## Config
 

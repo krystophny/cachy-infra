@@ -40,6 +40,9 @@ log "Setting up TTY autologin..."
 log "Setting up boot configuration..."
 "$SCRIPT_DIR/setup-boot.sh"
 
+log "Removing plymouth for faster boot..."
+"$SCRIPT_DIR/setup-remove-plymouth.sh"
+
 # Run Chicago95 setup as target user
 log "Setting up Chicago95 theme..."
 sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-chicago95.sh" "$TARGET_USER"
