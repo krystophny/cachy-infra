@@ -38,6 +38,10 @@ systemctl restart keyd
 log "Installing natural scrolling config..."
 cp "$SCRIPT_DIR/../config/X11/30-natural-scrolling.conf" /etc/X11/xorg.conf.d/
 
+# Set up fast keyboard repeat rate
+log "Installing keyboard repeat rate config..."
+cp "$SCRIPT_DIR/../config/X11/40-keyboard-repeat.conf" /etc/X11/xorg.conf.d/
+
 ok "Mac-like keybindings active"
 ok "Natural scrolling enabled (requires logout/restart)"
 echo ""
@@ -53,3 +57,6 @@ echo "  Cmd+T/W/N  -> New Tab/Close Tab/New Window"
 echo ""
 echo "Mouse:"
 echo "  Natural scrolling (inverted wheel)"
+echo ""
+echo "Keyboard:"
+echo "  Fast repeat (225ms delay, 30/s rate)"
