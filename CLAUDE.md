@@ -20,6 +20,7 @@ sudo reboot
 | `setup-boot.sh` | sudo | Set timeout=0, remove quiet/splash |
 | `setup-remove-plymouth.sh` | sudo | Remove plymouth from initramfs (faster boot) |
 | `setup-storage.sh` | sudo | Mount RAID storage (/dev/md0) at /mnt/storage |
+| `setup-keyd.sh` | sudo | Install keyd for Mac-like keybindings |
 
 ## Config
 
