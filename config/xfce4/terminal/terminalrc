@@ -1,6 +1,6 @@
 [Configuration]
-FontName=Terminus 14
-FontAllowBold=TRUE
+FontName=More Perfect DOS VGA 12
+FontAllowBold=FALSE
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBellUrgent=FALSE
