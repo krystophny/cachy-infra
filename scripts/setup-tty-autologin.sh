@@ -65,9 +65,9 @@ fi
 
 cat > "$BASH_PROFILE" << 'EOF'
 # cachy-infra: auto-start XFCE on tty1
-# D-Bus is managed by systemd via socket activation (dbus-broker)
+# Uses startx so ~/.xinitrc runs (gnome-keyring, dbus, etc.)
 if [[ -z "$DISPLAY" ]] && [[ "$(tty)" == "/dev/tty1" ]]; then
-    exec startxfce4
+    exec startx
 fi
 
 # Source .bashrc if it exists

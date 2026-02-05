@@ -21,6 +21,7 @@ sudo reboot
 | `setup-remove-plymouth.sh` | sudo | Remove plymouth from initramfs (faster boot) |
 | `setup-storage.sh` | sudo | Mount RAID storage (/dev/md0) at /mnt/storage |
 | `setup-keyd.sh` | sudo | Install keyd for Mac-like keybindings |
+| `setup-gnome-keyring.sh` | sudo | Install gnome-keyring with PAM auto-unlock |
 
 ## Config
 

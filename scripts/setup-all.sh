@@ -49,6 +49,9 @@ log "Removing plymouth for faster boot..."
 log "Setting up Mac-like keybindings..."
 "$SCRIPT_DIR/setup-keyd.sh"
 
+log "Setting up gnome-keyring for password storage..."
+"$SCRIPT_DIR/setup-gnome-keyring.sh"
+
 # Run Chicago95 setup as target user
 log "Setting up Chicago95 theme..."
 sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-chicago95.sh" "$TARGET_USER"
@@ -58,6 +61,7 @@ echo ""
 echo "Summary of changes:"
 echo "  - Chicago95 theme installed and configured"
 echo "  - TTY autologin enabled (LightDM disabled)"
+echo "  - gnome-keyring with PAM auto-unlock"
 echo "  - Boot timeout set to 0"
 echo "  - Removed quiet/splash for text boot"
 echo ""
