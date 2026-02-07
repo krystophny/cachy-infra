@@ -115,5 +115,18 @@ if [[ -f "$CONFIG_DIR/xfce4/terminal/terminalrc" ]]; then
     log "Installed terminal config with Perfect DOS VGA font"
 fi
 
+# Copy autostart entries (xbanish etc.)
+if [[ -d "$CONFIG_DIR/autostart" ]]; then
+    mkdir -p "$USER_HOME/.config/autostart"
+    for desktop_file in "$CONFIG_DIR/autostart/"*.desktop; do
+        [[ -f "$desktop_file" ]] || continue
+        filename=$(basename "$desktop_file")
+        dst="$USER_HOME/.config/autostart/$filename"
+        backup_if_different "$desktop_file" "$dst"
+        cp "$desktop_file" "$dst"
+        log "Installed autostart: $filename"
+    done
+fi
+
 ok "Chicago95 theme configured"
 log "NOTE: Log out and back in (or restart XFCE) for changes to take effect"

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=xbanish
+Comment=Hide mouse cursor when typing
+Exec=xbanish
+NoDisplay=true
+X-XFCE-Autostart-Override=true
