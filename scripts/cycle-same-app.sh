@@ -13,7 +13,9 @@ mapfile -t windows < <(wmctrl -lx | awk -v c="$active_class" -v d="$current_desk
 for i in "${!windows[@]}"; do
     if [[ "${windows[$i]}" == "$active_id" ]]; then
         next=$(( (i + 1) % ${#windows[@]} ))
-        wmctrl -ia "${windows[$next]}"
+        next_id="${windows[$next]}"
+        wmctrl -ia "$next_id"
+        xdotool mousemove --window "$next_id" --polar 0 0
         break
     fi
 done
