@@ -13,6 +13,7 @@
     <property name="placement_mode" type="string" value="center"/>
     <property name="raise_on_click" type="bool" value="true"/>
     <property name="borderless_maximize" type="bool" value="true"/>
+    <property name="titleless_maximize" type="bool" value="true"/>
     <property name="cycle_preview" type="bool" value="true"/>
     <property name="scroll_workspaces" type="bool" value="true"/>
     <property name="use_compositing" type="bool" value="false"/>
