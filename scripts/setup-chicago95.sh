@@ -63,6 +63,16 @@ else
     ok "Helvetica bitmap font already installed"
 fi
 
+# Install XFCE volume control packages
+log "Checking XFCE volume control packages..."
+if ! pacman -Qi xfce4-pulseaudio-plugin &>/dev/null || ! pacman -Qi pavucontrol &>/dev/null; then
+    log "Installing XFCE volume control packages via yay..."
+    yay -S --noconfirm --needed xfce4-pulseaudio-plugin pavucontrol
+    ok "XFCE volume control packages installed"
+else
+    ok "XFCE volume control packages already installed"
+fi
+
 # Kill xfconfd if running so config changes take effect
 if pgrep -x xfconfd &>/dev/null; then
     log "Stopping xfconfd to apply config..."

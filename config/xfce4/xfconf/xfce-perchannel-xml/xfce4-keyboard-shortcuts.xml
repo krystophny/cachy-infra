@@ -14,6 +14,10 @@
       <property name="&lt;Primary&gt;&lt;Alt&gt;l" type="empty"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;t" type="empty"/>
       <property name="XF86Display" type="empty"/>
+      <property name="XF86AudioRaiseVolume" type="empty"/>
+      <property name="XF86AudioLowerVolume" type="empty"/>
+      <property name="XF86AudioMute" type="empty"/>
+      <property name="XF86AudioMicMute" type="empty"/>
       <property name="&lt;Super&gt;p" type="empty"/>
       <property name="&lt;Primary&gt;Escape" type="empty"/>
       <property name="XF86WWW" type="empty"/>
@@ -62,6 +66,10 @@
       <property name="&lt;Alt&gt;Return" type="string" value="xfce4-terminal --maximize"/>
       <property name="&lt;Primary&gt;space" type="string" value="xfce4-appfinder"/>
       <property name="&lt;Alt&gt;grave" type="string" value="/home/ert/code/cachy-infra/scripts/cycle-same-app.sh"/>
+      <property name="XF86AudioRaiseVolume" type="string" value="wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"/>
+      <property name="XF86AudioLowerVolume" type="string" value="wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-"/>
+      <property name="XF86AudioMute" type="string" value="wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"/>
+      <property name="XF86AudioMicMute" type="string" value="wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"/>
       <property name="override" type="bool" value="true"/>
     </property>
   </property>
