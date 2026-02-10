@@ -22,6 +22,7 @@ sudo reboot
 | `setup-storage.sh` | sudo | Mount RAID storage (/dev/md0) at /mnt/storage |
 | `setup-keyd.sh` | sudo | Install keyd for Mac-like keybindings |
 | `setup-gnome-keyring.sh` | sudo | Install gnome-keyring with PAM auto-unlock |
+| `setup-tmux-chezmoi.sh` | user | Manage tmux display defaults in chezmoi and apply |
 
 ## Config
 
