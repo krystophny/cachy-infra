@@ -24,6 +24,8 @@ SOURCE_DIR="$(chezmoi source-path)"
 TMUX_SOURCE="$SOURCE_DIR/dot_tmux.conf"
 START_MARK="# cachy-infra: tmux-local-display begin"
 END_MARK="# cachy-infra: tmux-local-display end"
+USER_UID="$(id -u)"
+USER_HOME="${HOME}"
 
 mkdir -p "$SOURCE_DIR"
 touch "$TMUX_SOURCE"
@@ -35,18 +37,26 @@ awk -v s="$START_MARK" -v e="$END_MARK" '
     !skip { print }
 ' "$TMUX_SOURCE" > "$tmp"
 
+tmp_clean="$(mktemp)"
+grep -vF 'set -ga update-environment "XDG_RUNTIME_DIR WAYLAND_DISPLAY"' "$tmp" \
+    | grep -vF "run-shell 'tmux set-environment -g DISPLAY \"\${DISPLAY:-:0}\";" \
+    | grep -vF "set-hook -g client-attached 'run-shell \"tmux set-environment -g DISPLAY" \
+    | grep -vF '# Keep GUI launching from tmux working even when the attaching client' \
+    | grep -vF '# does not export DISPLAY/XAUTHORITY (common with SSH or tty login).' \
+    > "$tmp_clean"
+mv "$tmp_clean" "$tmp"
+
 if [[ -s "$tmp" ]]; then
     printf "\n" >> "$tmp"
 fi
 
-cat >> "$tmp" << 'EOF'
+cat >> "$tmp" << EOF
 # cachy-infra: tmux-local-display begin
-set -g mouse on
 
 # Keep local GUI apps working from tmux panes even when client env is sparse.
 set-environment -g DISPLAY ":0"
-set-environment -g XAUTHORITY "#{HOME}/.Xauthority"
-set-environment -g XDG_RUNTIME_DIR "/run/user/#{uid}"
+set-environment -g XAUTHORITY "${USER_HOME}/.Xauthority"
+set-environment -g XDG_RUNTIME_DIR "/run/user/${USER_UID}"
 
 # Keep dynamic vars, but do not clear DISPLAY/XAUTHORITY on attach.
 set -g update-environment "SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XDG_RUNTIME_DIR WAYLAND_DISPLAY"
