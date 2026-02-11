@@ -73,6 +73,16 @@ else
     ok "XFCE volume control packages already installed"
 fi
 
+# Install Visual Studio Code
+log "Checking Visual Studio Code..."
+if ! pacman -Qi visual-studio-code-bin &>/dev/null; then
+    log "Installing Visual Studio Code via yay..."
+    yay -S --noconfirm --needed visual-studio-code-bin
+    ok "Visual Studio Code installed"
+else
+    ok "Visual Studio Code already installed"
+fi
+
 # Kill xfconfd if running so config changes take effect
 if pgrep -x xfconfd &>/dev/null; then
     log "Stopping xfconfd to apply config..."
