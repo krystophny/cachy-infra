@@ -6,6 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_SRC="$SCRIPT_DIR/../config/voxtype/config.toml"
+WP_CONFIG_SRC="$SCRIPT_DIR/../config/wireplumber/51-no-suspend.conf"
 TARGET_USER="${1:-$USER}"
 
 log() { echo "[voxtype] $*"; }
@@ -60,6 +61,16 @@ fi
 install -m 0644 "$CONFIG_SRC" "$TARGET_CONFIG_FILE"
 ok "Installed voxtype config to $TARGET_CONFIG_FILE"
 
+if [[ -f "$WP_CONFIG_SRC" ]]; then
+    WP_TARGET_DIR="$HOME/.config/wireplumber/wireplumber.conf.d"
+    WP_TARGET_FILE="$WP_TARGET_DIR/51-no-suspend.conf"
+    mkdir -p "$WP_TARGET_DIR"
+    install -m 0644 "$WP_CONFIG_SRC" "$WP_TARGET_FILE"
+    ok "Installed WirePlumber no-suspend rule to $WP_TARGET_FILE"
+else
+    log "WirePlumber no-suspend config not found at $WP_CONFIG_SRC (skipping)"
+fi
+
 if systemctl --user list-unit-files 2>/dev/null | grep -q '^voxtype\.service'; then
     if systemctl --user is-active --quiet voxtype.service; then
         log "Restarting voxtype user service to apply updated config..."
@@ -72,6 +83,14 @@ if systemctl --user list-unit-files 2>/dev/null | grep -q '^voxtype\.service'; t
     fi
 else
     log "voxtype.service not available in user systemd; skipping service enable"
+fi
+
+if systemctl --user list-unit-files 2>/dev/null | grep -q '^wireplumber\.service'; then
+    log "Restarting wireplumber user service to apply no-suspend mic rule..."
+    systemctl --user restart wireplumber.service
+    ok "wireplumber.service restarted"
+else
+    log "wireplumber.service not available in user systemd; skipping restart"
 fi
 
 if systemctl --user list-unit-files 2>/dev/null | grep -q '^ydotool\.service'; then

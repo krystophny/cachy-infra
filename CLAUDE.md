@@ -21,7 +21,7 @@ sudo reboot
 | `setup-remove-plymouth.sh` | sudo | Remove plymouth from initramfs (faster boot) |
 | `setup-storage.sh` | sudo | Mount RAID storage (/dev/md0) at /mnt/storage |
 | `setup-keyd.sh` | sudo | Install keyd and merge `cut = f13` mapping without overwriting existing keyd config |
-| `setup-voxtype.sh` | user | Install voxtype + output backends, apply user config, enable/restart `voxtype.service` and `ydotool.service` |
+| `setup-voxtype.sh` | user | Install voxtype + output backends, apply user config, install WirePlumber mic no-suspend rule, enable/restart `voxtype.service` + `ydotool.service` |
 | `setup-gnome-keyring.sh` | sudo | Install gnome-keyring with PAM auto-unlock |
 | `setup-tmux-chezmoi.sh` | user | Manage tmux display defaults in chezmoi and apply |
 | `setup-packages.sh` | user | Install packages from `config/packages/yay-explicit.txt` via yay |
