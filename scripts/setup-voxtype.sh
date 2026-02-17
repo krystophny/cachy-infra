@@ -53,9 +53,15 @@ install -m 0644 "$CONFIG_SRC" "$TARGET_CONFIG_FILE"
 ok "Installed voxtype config to $TARGET_CONFIG_FILE"
 
 if systemctl --user list-unit-files 2>/dev/null | grep -q '^voxtype\.service'; then
-    log "Enabling voxtype user service..."
-    systemctl --user enable --now voxtype.service
-    ok "voxtype.service enabled and started"
+    if systemctl --user is-active --quiet voxtype.service; then
+        log "Restarting voxtype user service to apply updated config..."
+        systemctl --user restart voxtype.service
+        ok "voxtype.service restarted"
+    else
+        log "Enabling voxtype user service..."
+        systemctl --user enable --now voxtype.service
+        ok "voxtype.service enabled and started"
+    fi
 else
     log "voxtype.service not available in user systemd; skipping service enable"
 fi
