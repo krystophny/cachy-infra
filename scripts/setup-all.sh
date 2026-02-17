@@ -49,6 +49,9 @@ log "Removing plymouth for faster boot..."
 log "Setting up Mac-like keybindings..."
 "$SCRIPT_DIR/setup-keyd.sh"
 
+log "Setting up Voxtype..."
+sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-voxtype.sh" "$TARGET_USER"
+
 log "Setting up gnome-keyring for password storage..."
 "$SCRIPT_DIR/setup-gnome-keyring.sh"
 
@@ -66,6 +69,7 @@ echo "  - Chicago95 theme installed and configured"
 echo "  - tmux local display defaults managed via chezmoi"
 echo "  - TTY autologin enabled (LightDM disabled)"
 echo "  - gnome-keyring with PAM auto-unlock"
+echo "  - Voxtype configured with user config (F13 hotkey, large-v3-turbo)"
 echo "  - Boot timeout set to 0"
 echo "  - Removed quiet/splash for text boot"
 echo ""

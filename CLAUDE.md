@@ -20,15 +20,24 @@ sudo reboot
 | `setup-boot.sh` | sudo | Set timeout=0, remove quiet/splash |
 | `setup-remove-plymouth.sh` | sudo | Remove plymouth from initramfs (faster boot) |
 | `setup-storage.sh` | sudo | Mount RAID storage (/dev/md0) at /mnt/storage |
-| `setup-keyd.sh` | sudo | Install keyd for Mac-like keybindings |
+| `setup-keyd.sh` | sudo | Install keyd and merge `cut = f13` mapping without overwriting existing keyd config |
+| `setup-voxtype.sh` | user | Install voxtype, apply user config (F13 hotkey, large-v3-turbo), enable user service |
 | `setup-gnome-keyring.sh` | sudo | Install gnome-keyring with PAM auto-unlock |
 | `setup-tmux-chezmoi.sh` | user | Manage tmux display defaults in chezmoi and apply |
+| `setup-packages.sh` | user | Install packages from `config/packages/yay-explicit.txt` via yay |
+| `export-packages.sh` | user | Snapshot explicitly installed packages into `config/packages/yay-explicit.txt` |
 
 ## Config
 
 XFCE configuration in `config/xfce4/`:
 - `xfconf/xfce-perchannel-xml/` - XFCE settings (theme, panel, desktop)
 - `helpers.rc` - Default applications
+
+Voxtype configuration:
+- `config/voxtype/config.toml` - User voxtype config template
+
+Package snapshot:
+- `config/packages/yay-explicit.txt` - Explicit package list consumable by `yay -S`
 
 ## What Gets Configured
 

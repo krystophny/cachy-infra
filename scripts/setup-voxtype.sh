@@ -1,0 +1,61 @@
+#!/bin/bash
+# Install and configure Voxtype for a target user
+# Must run as the target user (not root)
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_SRC="$SCRIPT_DIR/../config/voxtype/config.toml"
+TARGET_USER="${1:-$USER}"
+
+log() { echo "[voxtype] $*"; }
+ok()  { echo "[voxtype] OK: $*"; }
+err() { echo "[voxtype] ERROR: $*" >&2; }
+
+if [[ $EUID -eq 0 ]]; then
+    err "Run this script as the target user, not root"
+    exit 1
+fi
+
+if [[ "$USER" != "$TARGET_USER" ]]; then
+    err "Current user ($USER) does not match target user ($TARGET_USER)"
+    exit 1
+fi
+
+if [[ ! -f "$CONFIG_SRC" ]]; then
+    err "Missing config source: $CONFIG_SRC"
+    exit 1
+fi
+
+if ! command -v yay &>/dev/null; then
+    err "yay is required but not installed"
+    exit 1
+fi
+
+if ! pacman -Qi voxtype &>/dev/null; then
+    log "Installing voxtype..."
+    yay -S --noconfirm --needed voxtype
+else
+    log "voxtype already installed"
+fi
+
+TARGET_CONFIG_DIR="$HOME/.config/voxtype"
+TARGET_CONFIG_FILE="$TARGET_CONFIG_DIR/config.toml"
+
+mkdir -p "$TARGET_CONFIG_DIR"
+if [[ -f "$TARGET_CONFIG_FILE" ]]; then
+    backup="$TARGET_CONFIG_FILE.bak.$(date +%Y%m%d-%H%M%S)"
+    cp "$TARGET_CONFIG_FILE" "$backup"
+    log "Backed up existing config to $backup"
+fi
+
+install -m 0644 "$CONFIG_SRC" "$TARGET_CONFIG_FILE"
+ok "Installed voxtype config to $TARGET_CONFIG_FILE"
+
+if systemctl --user list-unit-files 2>/dev/null | grep -q '^voxtype\.service'; then
+    log "Enabling voxtype user service..."
+    systemctl --user enable --now voxtype.service
+    ok "voxtype.service enabled and started"
+else
+    log "voxtype.service not available in user systemd; skipping service enable"
+fi

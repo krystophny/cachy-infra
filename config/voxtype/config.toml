@@ -1,0 +1,32 @@
+[hotkey]
+key = "F13"
+modifiers = []
+mode = "push_to_talk"
+
+[audio]
+device = "default"
+sample_rate = 16000
+max_duration_secs = 60
+
+[audio.feedback]
+enabled = false
+
+[whisper]
+model = "large-v3-turbo"
+language = "en"
+translate = false
+
+[output]
+mode = "type"
+fallback_to_clipboard = true
+type_delay_ms = 0
+
+[output.notification]
+on_recording_start = false
+on_recording_stop = false
+on_transcription = true
+
+state_file = "auto"
+
+[text]
+replacements = { "mating center" = "guiding center", "fast generation" = "fast gyration", "phase-based" = "phase-space", "Standards in practic" = "Standard symplectic", "standards in practic" = "standard symplectic", "rungicata" = "Runge-Kutta", "idiopatic" = "adiabatic", "pre-tunes" = "perturbations", "law statistics" = "loss statistics", "stelorators" = "stellarators", "stelorator" = "stellarator", "give meaning to" = "give me a link to", "from my site" = "from my side", "mark down files" = "markdown files" }
