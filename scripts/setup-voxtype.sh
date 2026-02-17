@@ -32,11 +32,19 @@ if ! command -v yay &>/dev/null; then
     exit 1
 fi
 
-if ! pacman -Qi voxtype &>/dev/null; then
-    log "Installing voxtype..."
-    yay -S --noconfirm --needed voxtype
+required_packages=(voxtype ydotool wtype wl-clipboard xclip)
+missing_packages=()
+for pkg in "${required_packages[@]}"; do
+    if ! pacman -Qi "$pkg" &>/dev/null; then
+        missing_packages+=("$pkg")
+    fi
+done
+
+if [[ ${#missing_packages[@]} -gt 0 ]]; then
+    log "Installing required packages: ${missing_packages[*]}"
+    yay -S --noconfirm --needed "${missing_packages[@]}"
 else
-    log "voxtype already installed"
+    log "Required packages already installed: ${required_packages[*]}"
 fi
 
 TARGET_CONFIG_DIR="$HOME/.config/voxtype"
@@ -64,4 +72,12 @@ if systemctl --user list-unit-files 2>/dev/null | grep -q '^voxtype\.service'; t
     fi
 else
     log "voxtype.service not available in user systemd; skipping service enable"
+fi
+
+if systemctl --user list-unit-files 2>/dev/null | grep -q '^ydotool\.service'; then
+    log "Enabling ydotool user service..."
+    systemctl --user enable --now ydotool.service
+    ok "ydotool.service enabled and started"
+else
+    log "ydotool.service not available in user systemd; skipping enable"
 fi
