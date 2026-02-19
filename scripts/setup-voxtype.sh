@@ -72,17 +72,24 @@ else
 fi
 
 if systemctl --user list-unit-files 2>/dev/null | grep -q '^voxtype\.service'; then
+    log "Configuring voxtype autostart on default.target..."
+    # Move away from vendor WantedBy=graphical-session.target so voxtype also
+    # starts in tty/non-graphical user sessions.
+    systemctl --user disable voxtype.service >/dev/null 2>&1 || true
+    systemctl --user add-wants default.target voxtype.service
+    ok "voxtype.service linked to default.target"
+
     if systemctl --user is-active --quiet voxtype.service; then
         log "Restarting voxtype user service to apply updated config..."
         systemctl --user restart voxtype.service
         ok "voxtype.service restarted"
     else
-        log "Enabling voxtype user service..."
-        systemctl --user enable --now voxtype.service
-        ok "voxtype.service enabled and started"
+        log "Starting voxtype user service..."
+        systemctl --user start voxtype.service
+        ok "voxtype.service started"
     fi
 else
-    log "voxtype.service not available in user systemd; skipping service enable"
+    log "voxtype.service not available in user systemd; skipping service setup"
 fi
 
 if systemctl --user list-unit-files 2>/dev/null | grep -q '^wireplumber\.service'; then
