@@ -71,6 +71,19 @@ else
     log "WirePlumber no-suspend config not found at $WP_CONFIG_SRC (skipping)"
 fi
 
+if command -v voxtype &>/dev/null; then
+    if command -v sudo &>/dev/null && sudo -n true &>/dev/null; then
+        log "Enabling voxtype GPU backend (Vulkan) when available..."
+        if sudo -n voxtype setup gpu --enable; then
+            ok "voxtype GPU backend enabled"
+        else
+            log "voxtype GPU backend enable failed; continuing with current backend"
+        fi
+    else
+        log "Skipping voxtype GPU backend enable (passwordless sudo unavailable)"
+    fi
+fi
+
 if systemctl --user list-unit-files 2>/dev/null | grep -q '^voxtype\.service'; then
     log "Configuring voxtype autostart on default.target..."
     # Move away from vendor WantedBy=graphical-session.target so voxtype also
