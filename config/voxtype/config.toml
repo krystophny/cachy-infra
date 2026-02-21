@@ -13,7 +13,7 @@ enabled = false
 
 [whisper]
 model = "large-v3-turbo"
-language = "en"
+language = ["en", "de"]
 translate = false
 on_demand_loading = false
 
