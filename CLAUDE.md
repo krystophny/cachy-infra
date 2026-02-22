@@ -26,6 +26,7 @@ sudo reboot
 | `setup-tmux-chezmoi.sh` | user | Manage tmux display defaults in chezmoi and apply |
 | `setup-ssh-controlmaster.sh` | user | Manage SSH ControlMaster defaults in chezmoi and apply |
 | `setup-ssh-agent.sh` | user | Enable ssh-agent via systemd socket, add AddKeysToAgent/ForwardAgent to SSH config via chezmoi |
+| `setup-vscode-fonts.sh` | user | Fix VS Code UI fonts by rejecting bitmap Helvetica via per-app fontconfig, install `~/bin/code` wrapper and local `.desktop` file |
 | `setup-packages.sh` | user | Install packages from `config/packages/yay-explicit.txt` via yay |
 | `export-packages.sh` | user | Snapshot explicitly installed packages into `config/packages/yay-explicit.txt` |
 
