@@ -57,5 +57,14 @@ if [[ -f /usr/share/applications/code.desktop ]]; then
     ok "Installed desktop file: $DESKTOP_LOCAL"
 fi
 
+# 5. Patch XFCE panel launchers that point to /usr/bin/code
+for f in "$TARGET_HOME"/.config/xfce4/panel/launcher-*/*.desktop; do
+    [[ -f "$f" ]] || continue
+    if grep -q "Exec=/usr/bin/code" "$f"; then
+        sed -i "s|Exec=/usr/bin/code|Exec=$WRAPPER|g" "$f"
+        ok "Patched panel launcher: $f"
+    fi
+done
+
 echo
 ok "Restart VS Code to apply font fix."
