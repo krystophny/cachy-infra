@@ -65,6 +65,9 @@ sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-tmux-chezmoi.sh" "$TARGET_USER"
 log "Configuring SSH ControlMaster defaults via chezmoi..."
 sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-ssh-controlmaster.sh" "$TARGET_USER"
 
+log "Enabling SSH agent via systemd + chezmoi..."
+sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-ssh-agent.sh" "$TARGET_USER"
+
 log "Setup complete!"
 echo ""
 echo "Summary of changes:"
