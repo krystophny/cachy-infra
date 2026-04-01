@@ -45,6 +45,7 @@ mkdir -p "$GETTY_DIR"
 
 cat > "$GETTY_DIR/autologin.conf" << EOF
 [Service]
+KeyringMode=inherit
 ExecStart=
 ExecStart=-/sbin/agetty -o '-p -f -- \\\\u' --noclear --autologin $TARGET_USER %I \$TERM
 EOF
@@ -65,7 +66,7 @@ fi
 
 cat > "$BASH_PROFILE" << 'EOF'
 # cachy-infra: auto-start XFCE on tty1
-# Uses startx so ~/.xinitrc runs (gnome-keyring, dbus, etc.)
+# Uses startx so the tty login session becomes the XFCE session.
 if [[ -z "$DISPLAY" ]] && [[ "$(tty)" == "/dev/tty1" ]]; then
     exec startx
 fi

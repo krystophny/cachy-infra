@@ -52,7 +52,7 @@ log "Setting up Mac-like keybindings..."
 log "Setting up Voxtype..."
 sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-voxtype.sh" "$TARGET_USER"
 
-log "Setting up gnome-keyring for password storage..."
+log "Setting up gnome-keyring for tty autologin..."
 "$SCRIPT_DIR/setup-gnome-keyring.sh"
 
 # Run Chicago95 setup as target user
@@ -61,9 +61,6 @@ sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-chicago95.sh" "$TARGET_USER"
 
 log "Configuring tmux local display defaults via chezmoi..."
 sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-tmux-chezmoi.sh" "$TARGET_USER"
-
-log "Configuring SSH ControlMaster defaults via chezmoi..."
-sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-ssh-controlmaster.sh" "$TARGET_USER"
 
 log "Enabling SSH agent via systemd + chezmoi..."
 sudo -u "$TARGET_USER" "$SCRIPT_DIR/setup-ssh-agent.sh" "$TARGET_USER"
@@ -76,9 +73,8 @@ echo ""
 echo "Summary of changes:"
 echo "  - Chicago95 theme installed and configured"
 echo "  - tmux local display defaults managed via chezmoi"
-echo "  - SSH ControlMaster defaults managed via chezmoi"
 echo "  - TTY autologin enabled (LightDM disabled)"
-echo "  - gnome-keyring with PAM auto-unlock"
+echo "  - gnome-keyring with PAM unlock for tty autologin"
 echo "  - Voxtype configured with user config (F13 hotkey, large-v3-turbo)"
 echo "  - VS Code fonts fixed (bitmap Helvetica rejected)"
 echo "  - Boot timeout set to 0"

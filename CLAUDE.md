@@ -22,9 +22,8 @@ sudo reboot
 | `setup-storage.sh` | sudo | Mount RAID storage (/dev/md0) at /mnt/storage |
 | `setup-keyd.sh` | sudo | Install keyd and merge `cut = f13` mapping without overwriting existing keyd config |
 | `setup-voxtype.sh` | user | Install voxtype + output backends, apply user config, install WirePlumber mic no-suspend rule, auto-enable voxtype GPU backend via `sudo voxtype setup gpu --enable` (when passwordless sudo is available), link `voxtype.service` to `default.target`, restart/start `voxtype.service`, enable/restart `ydotool.service` |
-| `setup-gnome-keyring.sh` | sudo | Install gnome-keyring with PAM auto-unlock |
+| `setup-gnome-keyring.sh` | sudo | Install gnome-keyring with PAM unlock for tty autologin |
 | `setup-tmux-chezmoi.sh` | user | Manage tmux display defaults in chezmoi and apply |
-| `setup-ssh-controlmaster.sh` | user | Manage SSH ControlMaster defaults in chezmoi and apply |
 | `setup-ssh-agent.sh` | user | Enable ssh-agent via systemd socket, add AddKeysToAgent/ForwardAgent to SSH config via chezmoi |
 | `setup-vscode-fonts.sh` | user | Fix VS Code UI fonts by rejecting bitmap Helvetica via per-app fontconfig, install `~/bin/code` wrapper and local `.desktop` file |
 | `setup-packages.sh` | user | Install packages from `config/packages/yay-explicit.txt` via yay |
